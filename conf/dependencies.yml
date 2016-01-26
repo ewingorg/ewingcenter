@@ -1,0 +1,18 @@
+# Application dependencies
+
+require:
+    - jws
+    - commons-pool -> commons-pool 1.6
+    - com.google.inject -> guice 3.0:
+        transitive: false
+    - com.googlecode.jmockit -> jmockit 1.5:
+        transitive: false
+    - aopalliance -> aopalliance 1.0:
+        transitive: false
+    - com.taobao.wireless -> mtop4-server-sdk 1.1.3
+    - commons-httpclient -> commons-httpclient 3.1
+    - com.fasterxml.jackson.core -> jackson-core 2.3.0
+    - com.fasterxml.jackson.core -> jackson-annotations 2.3.0
+    - com.fasterxml.jackson.core -> jackson-databind 2.3.0
+    - org.bouncycastle -> bcprov-jdk16 1.45
+    - cn.uc.ucgc.jxl -> jxl 1.0.0

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classes>
+	<package name="job.model">
+		<class name="JobDefine" comment="定时任务定义表" />
+		<class name="JobVote" comment="定时作业进程投票选举" />
+		<class name="JobProcessLog" comment="定时任务执行结果日志" />
+	</package>
+ 
+	<package name="business.ddl">
+		<class name="WebResource" comment="资源" />
+		<class name="WebResourceAttr" comment="资源属性" />
+		<class name="WebResourceParam" comment="资源参数" />
+		<class name="WebResourcePrice" comment="资源价格" />
+		<class name="WebResourceScreenshot" comment="资源截图" />
+		<class name="WebResourceSpec" comment="资源规格" />
+		<class name="WebCategory" comment="分类" />
+	</package>
+</classes>
