@@ -1,4 +1,4 @@
-package dto;
+package business.product.dto;
 
 /**
  * 轻量级的产品信息，产品列表使用
@@ -6,7 +6,11 @@ package dto;
  * @author tanson lam
  * @creation 2016年1月25日
  */
-public class LightProductInfo {
+public class LightProductInfoResp {
+    /**
+     * 产品ID
+     */
+    private Integer id;
     /**
      * 产品名称
      */
@@ -27,6 +31,24 @@ public class LightProductInfo {
      * 图片URL
      */
     private String imageUrl;
+    
+    private LightProductInfoReq req;
+
+    public LightProductInfoReq getReq() {
+        return req;
+    }
+
+    public void setReq(LightProductInfoReq req) {
+        this.req = req;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Float getCost() {
         return cost;

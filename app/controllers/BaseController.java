@@ -39,6 +39,8 @@ import eu.bitwalker.useragentutils.UserAgent;
 @With({ ExceptionHandler.class })
 public class BaseController extends BaseApiController {
 
+    protected static final String REQUIRED = "_required";
+
     protected static ExecutorService executor = Executors.newCachedThreadPool();
 
     protected static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
@@ -108,21 +110,24 @@ public class BaseController extends BaseApiController {
 
     protected static <T> T getParamJson(Class<T> clazz) {
         T dest = null;
+        RequestJson requestJson = null;
         try {
-            String param = getParams().get("param"); 
-            RequestJson requestJson = requestGson.fromJson(getParams().get("param"),
-                    RequestJson.class);  
+            String method = Request.current().method;
+            if (method.equalsIgnoreCase("POST"))
+                requestJson = requestGson.fromJson(getParams().get("body"), RequestJson.class);
+            else if (method.equalsIgnoreCase("GET"))
+                requestJson = requestGson.fromJson(getParams().get("param"), RequestJson.class);
             Object newObject = clazz.newInstance();
-            BeanUtils.populate(newObject, (Map)requestJson.getData());
-            return (T) newObject; 
+            BeanUtils.populate(newObject, (Map) requestJson.getData());
+            return (T) newObject;
         } catch (Exception e) {
             Logger.error(e, "解析json格式异常。");
             throw new BusinessException(ResponseCode.UNKOWN_ERROR, "json格式错误。");
         }
     }
-    
-    public static void main(String[] args) { 
-        String md5 =  DigestUtils.md5Hex("123");
+
+    public static void main(String[] args) {
+        String md5 = DigestUtils.md5Hex("123");
         System.out.println(md5);
     }
 
@@ -234,9 +239,7 @@ public class BaseController extends BaseApiController {
      */
     protected static <T> void checkParamNull(String paraName, T paraValue) {
         if (null == paraValue) {
-            if (isAjaxRequest()) {
-                jsonFailed(ResponseCode.PARAM_ILLEGAL, paraName + " is null.");
-            }
+            jsonFailed(ResponseCode.PARAM_ILLEGAL, paraName + " is null.");
         }
     }
 
@@ -249,11 +252,10 @@ public class BaseController extends BaseApiController {
      */
     protected static void checkRequired(Object obj, String message) {
         boolean isNullOrEmpty = (null == obj)
-                || (obj instanceof String && obj.toString().isEmpty());
+                || (obj instanceof String && obj.toString().isEmpty())
+                || obj.toString().equalsIgnoreCase("null");
         if (isNullOrEmpty) {
-            if (isAjaxRequest()) {
-                jsonFailed(ResponseCode.PARAM_ILLEGAL, "缺少必填参数：" + message);
-            }
+            jsonFailed(ResponseCode.PARAM_ILLEGAL, "缺少必填参数：" + message);
         }
     }
 
@@ -266,9 +268,7 @@ public class BaseController extends BaseApiController {
      */
     protected static void checkBoolean(boolean isTrue, String message) {
         if (!isTrue) {
-            if (isAjaxRequest()) {
-                jsonFailed(ResponseCode.PARAM_ILLEGAL, "参数检查出错：" + message);
-            }
+            jsonFailed(ResponseCode.PARAM_ILLEGAL, "参数检查出错：" + message);
         }
     }
 
@@ -283,9 +283,7 @@ public class BaseController extends BaseApiController {
     protected static void checkPattern(String value, String key, String expression) {
         Pattern pattern = Pattern.compile(expression);
         if (!pattern.matcher(value).matches()) {
-            if (isAjaxRequest()) {
-                jsonFailed(ResponseCode.PARAM_ILLEGAL, "参数不合法：" + key);
-            }
+            jsonFailed(ResponseCode.PARAM_ILLEGAL, "参数不合法：" + key);
         }
     }
 
@@ -315,7 +313,7 @@ public class BaseController extends BaseApiController {
         String msg = StringUtils.isBlank(message) ? "Ok" : message;
         Map<String, Object> jsonMap = ResponseUtils
                 .populateResponseJson(ResponseCode.OK, msg, data);
-        if (!StringUtil.isEmpty(request.current().params.get("callbackparam"))) {
+        if (isJsonpRequest()) {
             String json = JsonUtil.tranBean2String(data).toString();
             String jsonpResut = "success_jsonpCallback(" + json + ")";
             renderJSON(jsonpResut);
@@ -335,6 +333,12 @@ public class BaseController extends BaseApiController {
         jsonFailed(new CommonResponse.State(c, msg));
     }
 
+    private static boolean isJsonpRequest() {
+        if (!StringUtil.isEmpty(request.current().params.get("callbackparam")))
+            return true;
+        return false;
+    }
+
     /**
      * 失败josn格式返回
      * 
@@ -346,7 +350,12 @@ public class BaseController extends BaseApiController {
         }
         Map<String, Object> jsonMap = ResponseUtils.populateResponseJson(state.code, state.msg,
                 null);
-        renderJSON(jsonMap);
+        if (isJsonpRequest()) {
+            String json = JsonUtil.tranBean2String(jsonMap).toString();
+            String jsonpResut = "success_jsonpCallback(" + json + ")";
+            renderJSON(jsonpResut);
+        } else
+            renderJSON(jsonMap);
     }
 
     /**
@@ -367,20 +376,6 @@ public class BaseController extends BaseApiController {
      */
     protected static void render(String fileName, String type, Map<String, Object> args) {
         renderTemplate(type + "/" + fileName, args);
-    }
-
-    /**
-     * 判断是否ajax请求
-     * 
-     * @return
-     */
-    public static boolean isAjaxRequest() {
-        Header requestType = jws.mvc.Http.Request.current().headers.get("x-requested-with");
-        if (requestType != null && requestType.value() != null
-                && requestType.value().equals("XMLHttpRequest")) {
-            return true;
-        }
-        return false;
     }
 
     /**

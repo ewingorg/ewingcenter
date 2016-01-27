@@ -1,4 +1,4 @@
-package dto;
+package business.product.dto;
 
 /**
  * 页面请求參數

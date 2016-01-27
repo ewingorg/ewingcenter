@@ -1,16 +1,14 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.Map;
 
+import business.product.dto.LightProductInfoReq;
+import business.product.dto.LightProductInfoResp;
+import business.product.dto.ProductDetailReq;
+import business.product.dto.ProductDetailResp;
+import business.product.service.WebResourceService;
 import constants.IsHot;
-import business.ddl.WebResource;
-import business.service.WebResourceService;
-import apifw.common.RequestJson;
-import dto.LightProductInfo;
-import dto.LightProductInfoReq;
 
 /**
  * 产品控制类，提供产品相关数据
@@ -30,14 +28,25 @@ public class WebResourceController extends BaseController {
         Integer isHot = request.getIsHot();
         Integer page = request.getPage();
         Integer pageSize = request.getPageSize();
-        List<LightProductInfo> list = WebResourceService.pageQueryHotResource(
+        Integer userId = request.getUserId();
+        checkRequired(isHot, "isHot" + REQUIRED);
+        checkRequired(page, "page" + REQUIRED);
+        checkRequired(pageSize, "pageSize" + REQUIRED);
+        checkRequired(userId, "userId" + REQUIRED);
+
+        List<LightProductInfoResp> list = WebResourceService.pageQueryHotResource(userId,
                 IsHot.fromValue(isHot), page, pageSize);
-        // RequestJson requestJson = getJson();
-        /*
-         * List<LightProductInfo> list = new ArrayList<LightProductInfo>(); for (int i = 1; i < 5; i++) { LightProductInfo product = new
-         * LightProductInfo(); product.setImageUrl("../images/haixian" + i + ".jpg"); product.setName("幸福就是可以一起睡觉");
-         * product.setShortDesc("幸福就是可以一起睡觉"); product.setPrice(30f); list.add(product); }
-         */
         outJsonSuccess(list);
     }
+
+    /**
+     * 查找单个资源信息
+     */
+    public static void getProductDetail() {
+        ProductDetailReq request = getParamJson(ProductDetailReq.class);
+        Integer pId = request.getpId();
+        ProductDetailResp productDetailResp = WebResourceService.getProductDetail(pId);
+        outJsonSuccess(productDetailResp);
+    }
+
 }

@@ -10,5 +10,6 @@ GET     /error                               Application.error
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
-*  /product/indexList    WebResourceController.queryIndexProduct
+*  /product/indexList              WebResourceController.queryIndexProduct
+*  /product/detail                 WebResourceController.getProductDetail
 
