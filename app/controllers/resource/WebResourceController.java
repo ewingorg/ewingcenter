@@ -18,7 +18,7 @@ import biz.resource.service.WebResourceService;
  * @createDate 2016年1月25日
  * 
  */
-public class WebResources extends BaseController {
+public class WebResourceController extends BaseController {
 
     /**
      * 获取首页产品列表

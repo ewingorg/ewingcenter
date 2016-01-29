@@ -9,7 +9,7 @@ import controllers.base.BaseController;
  * @createDate 2016年1月29日
  *
  */
-public class UserReceiveAddresss extends BaseController {
+public class UserReceiveAddressController extends BaseController {
     
     public static void getByUser(Integer userId){
         

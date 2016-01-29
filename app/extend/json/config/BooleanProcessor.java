@@ -3,6 +3,7 @@ package extend.json.config;
 import net.sf.json.JsonConfig;
 import net.sf.json.processors.JsonValueProcessor;
 
+
 /**
  * 通用布尔值转换（1:true,0:false）
  *  
