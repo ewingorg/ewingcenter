@@ -7,44 +7,46 @@
     shard-column: 分库字段
 -->
 <configs>
-    <config class="job.model.JobDefine" source="mysql"
+	<!-- job -->
+    <config class="extend.job.model.JobDefine" source="mysql"
 		shard-type="none" comment="定时任务定义表">
 		<map client="vdb_01">0</map>
 	</config>
-	 <config class="job.model.JobVote" source="mysql"
+	 <config class="extend.job.model.JobVote" source="mysql"
 		shard-type="none" comment="定时作业进程投票选举">
 		<map client="vdb_01">0</map>
 	</config>
-	 <config class="job.model.JobProcessLog" source="mysql"
+	 <config class="extend.job.model.JobProcessLog" source="mysql"
 		shard-type="none" comment="定时任务执行结果日志">
 		<map client="vdb_01">0</map>
 	</config> 
 	
-	 <config class="business.ddl.WebResource" source="mysql"
+	<!-- resource -->
+	<config class="biz.resource.ddl.WebResource" source="mysql"
 		shard-type="none">
 		<map client="vdb_01">0</map>
 	</config> 
-	 <config class="business.ddl.WebResourceAttr" source="mysql"
+	 <config class="biz.resource.ddl.WebResourceAttr" source="mysql"
 		shard-type="none">
 		<map client="vdb_01">0</map>
 	</config> 
-	<config class="business.ddl.WebResourceParam" source="mysql"
+	<config class="biz.resource.ddl.WebResourceParam" source="mysql"
 		shard-type="none">
 		<map client="vdb_01">0</map>
 	</config> 
-	<config class="business.ddl.WebResourcePrice" source="mysql"
+	<config class="biz.resource.ddl.WebResourcePrice" source="mysql"
 		shard-type="none">
 		<map client="vdb_01">0</map>
 	</config> 
-	<config class="business.ddl.WebResourceScreenshot" source="mysql"
+	<config class="biz.resource.ddl.WebResourceScreenshot" source="mysql"
 		shard-type="none">
 		<map client="vdb_01">0</map>
 	</config> 
-	<config class="business.ddl.WebResourceSpec" source="mysql"
+	<config class="biz.resource.ddl.WebResourceSpec" source="mysql"
 		shard-type="none">
 		<map client="vdb_01">0</map>
 	</config>
-	<config class="business.ddl.WebCategory" source="mysql"
+	<config class="biz.resource.ddl.WebCategory" source="mysql"
 		shard-type="none">
 		<map client="vdb_01">0</map>
 	</config>  
