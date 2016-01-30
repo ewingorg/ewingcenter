@@ -30,10 +30,10 @@ public class WebResourceController extends BaseController {
         Integer page = request.getPage();
         Integer pageSize = request.getPageSize();
         Integer userId = request.getUserId();
-        checkRequired(isHot, "isHot" + REQUIRED);
-        checkRequired(page, "page" + REQUIRED);
-        checkRequired(pageSize, "pageSize" + REQUIRED);
-        checkRequired(userId, "userId" + REQUIRED);
+        checkRequired(isHot, "isHot");
+        checkRequired(page, "page");
+        checkRequired(pageSize, "pageSize");
+        checkRequired(userId, "userId");
 
         List<LightProductInfoResp> list = WebResourceService.pageQueryHotResource(userId,
                 IsHot.fromValue(isHot), page, pageSize);

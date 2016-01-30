@@ -1,4 +1,4 @@
-package biz.customer.dao;
+package biz.resource.dao;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import extend.jdbc.BaseDao;
  * @author chenxuegui.cxg@alibaba-inc.com
  * @createDate 2016年1月29日
  */
-public class CustomerReceiveAddressDao extends BaseDao {
+public class WebResourceDao extends BaseDao {
 
     /**
      * 获取资源信息，支持分页获取数据

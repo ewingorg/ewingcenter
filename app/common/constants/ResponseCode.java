@@ -11,12 +11,12 @@ public class ResponseCode {
     /**
      * 成功
      */
-    public static final int OK = 200;
+    public static final int OK = 2000000;
 
     /**
      * 重定向
      */
-    public static final int REDIRECT = 301;
+    public static final int REDIRECT = 3000001;
 
     /**** 系统内部错误码 ***************************************************************************/
 
@@ -38,16 +38,16 @@ public class ResponseCode {
     /***
      * 请求不可识别错误异常
      */
-    public static final int UNRECOGNIZED_RESPONSE = 5000060;
+    public static final int UNRECOGNIZED_RESPONSE = 5000003;
 
     /***
      * 请求不是期待错误异常
      */
-    public static final int UNEXPECTED_RESPONSE = 5000070;
+    public static final int UNEXPECTED_RESPONSE = 5000004;
 
     /***
      * URL请求、转换实体错误异常
      */
-    public static final int BEAN_COVERT_ERROR = 5000080;
+    public static final int BEAN_COVERT_ERROR = 5000005;
 
 }

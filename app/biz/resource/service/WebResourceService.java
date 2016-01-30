@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import common.constants.IsHot;
-import biz.customer.dao.CustomerReceiveAddressDao;
+import biz.customer.dao.CustomerReceiveMsgDao;
+import biz.resource.dao.WebResourceDao;
 import biz.resource.ddl.WebResource;
 import biz.resource.dto.LightProductInfoReq;
 import biz.resource.dto.LightProductInfoResp;
@@ -15,6 +15,8 @@ import biz.resource.dto.ProductDetailDto;
 import biz.resource.dto.ProductDetailResp;
 import biz.resource.dto.ProductPriceDto;
 import biz.resource.dto.ProductSpecGroup;
+
+import common.constants.IsHot;
 
 /**
  * 资源服务类
@@ -39,7 +41,7 @@ public class WebResourceService {
             Integer page, Integer pageSize) {
 
         List<LightProductInfoResp> dtoList = new ArrayList<LightProductInfoResp>();
-        List<WebResource> list = CustomerReceiveAddressDao.pageQueryHotResource(userId, isHot, page, pageSize);
+        List<WebResource> list = WebResourceDao.pageQueryHotResource(userId, isHot, page, pageSize);
         for (WebResource webResource : list) {
             LightProductInfoResp lightProductInfo = new LightProductInfoResp();
             try {
@@ -64,7 +66,7 @@ public class WebResourceService {
      * @throws IllegalAccessException
      */
     public static ProductDetailResp getProductDetail(Integer resourceId) {
-        WebResource webresource = CustomerReceiveAddressDao.findOne(resourceId);
+        WebResource webresource = WebResourceDao.findOne(resourceId);
         if (webresource == null)
             return null;
         ProductDetailResp detailResponse = new ProductDetailResp();

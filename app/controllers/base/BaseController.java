@@ -38,7 +38,7 @@ import eu.bitwalker.useragentutils.UserAgent;
 import extend.json.JsonUtil;
 
 @With({ ExceptionHandler.class })
-public class BaseController extends BaseApiController {
+public class BaseController extends ValidObjectController {
 
     protected static final String REQUIRED = "_required";
 
@@ -303,6 +303,32 @@ public class BaseController extends BaseApiController {
      */
     protected static <T> void outJsonSuccess(T data) {
         jsonSuccess(data, null);
+    }
+    
+    /**
+     * json格式成功返回
+     * 
+     * @param data
+     */
+    protected static <T> void json(boolean suc,String sucMsg, String errorMsg) {
+        if(suc){
+            jsonSuccess(sucMsg);
+        }else{
+            jsonFailed(ResponseCode.INTERNAL_ERROR, errorMsg);
+        }
+    }
+    
+    /**
+     * json格式成功返回
+     * 
+     * @param data
+     */
+    protected static <T> void json(boolean suc) {
+        if(suc){
+            jsonSuccess();
+        }else{
+            jsonFailed(ResponseCode.INTERNAL_ERROR, StringUtils.EMPTY);
+        }
     }
 
     /**

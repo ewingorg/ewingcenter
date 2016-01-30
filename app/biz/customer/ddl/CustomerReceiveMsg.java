@@ -17,8 +17,8 @@ import extend.json.annotation.Comment;
  * @author chenxuegui.cxg@alibaba-inc.com
  * @createDate 2016年1月29日
  */
-@Table(name = "user_receive_address")
-public class CustomerReceiveAddress
+@Table(name = "customer_receive_msg")
+public class CustomerReceiveMsg
 {
 
 	/**
@@ -33,10 +33,24 @@ public class CustomerReceiveAddress
 	/**
 	 * 用户id
 	 */
-	@Column(name = "user_id", type = Int)
-	@Comment(name = "用户id")
-	public Integer userId;
+	@Column(name = "customer_id", type = Int)
+	@Comment(name = "客户id")
+	public Integer customerId;
 
+	/**
+     * 收件人
+     */
+    @Column(name = "receiver", type = Varchar)
+    @Comment(name = "收件人")
+    public String receiver;
+    
+    /**
+     * 收件人
+     */
+    @Column(name = "phone", type = Varchar)
+    @Comment(name = "电话")
+    public String phone;
+    
 	/**
 	 * 省份
 	 */
@@ -65,6 +79,13 @@ public class CustomerReceiveAddress
 	@Comment(name = "具体位置")
 	public String address;
 
+	/**
+     * 是否默认 0:不是 1:是
+     */
+    @Column(name = "is_default", type = Char)
+    @Comment(name = "是否生效 0:没生效 1:生效")
+    public String isDefault;
+    
 	/**
      * 是否生效 0:没生效 1:生效
      */

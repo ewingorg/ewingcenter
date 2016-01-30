@@ -47,8 +47,19 @@ public class BaseDao {
     /**
      * 新增
      */
-    protected static <T> boolean add(T entity) { 
+    protected static <T> boolean add(T entity) {
         return Dal.insert(entity) > 0;
+    }
+
+    /**
+     * 新增
+     */
+    protected static <T> boolean addMuti(List<T> list) {
+        if (CollectionUtils.isEmpty(list)) {
+            return false;
+        }
+
+        return Dal.insertMulti(list) > 0;
     }
 
     /**
@@ -72,6 +83,22 @@ public class BaseDao {
             // Logger.error("error to set the value of primary column", e);
         }
         return true;
+    }
+
+    /**
+     * 根据主键删除记录
+     * 
+     * @param entityClass
+     * @param id
+     * @return
+     */
+    public static boolean deleteById(Class entityClass, Integer id) {
+        if (entityClass == null)
+            throw new DalException("no entityClass set");
+        //主键为id，如果主键不是id的可能会有问题
+        String con = String.format("%s.%s", entityClass.getSimpleName(), "id");
+        Condition condition = new Condition(con, "=", id);
+        return Dal.delete(condition) > 0;
     }
 
     /**
