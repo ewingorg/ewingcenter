@@ -50,5 +50,27 @@
 		shard-type="none">
 		<map client="vdb_01">0</map>
 	</config>  
+	
+	<!-- customer -->
+	<config class="biz.customer.ddl.Customer" source="mysql"
+		shard-type="none">
+		<map client="vdb_01">0</map>
+	</config>  
+	<config class="biz.customer.ddl.CustomerCollect" source="mysql"
+		shard-type="none">
+		<map client="vdb_01">0</map>
+	</config>  
+	<config class="biz.customer.ddl.CustomerOrder" source="mysql"
+		shard-type="none">
+		<map client="vdb_01">0</map>
+	</config>  
+	<config class="biz.customer.ddl.CustomerReceiveMsg" source="mysql"
+		shard-type="none">
+		<map client="vdb_01">0</map>
+	</config>  
+	<config class="biz.customer.ddl.CustomerShopCart" source="mysql"
+		shard-type="none">
+		<map client="vdb_01">0</map>
+	</config>  
 	 
 </configs>

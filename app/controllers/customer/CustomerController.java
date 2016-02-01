@@ -1,50 +1,37 @@
 package controllers.customer;
 
-import java.util.List;
-
-import apifw.common.RequestJson;
 import apifw.exception.BusinessException;
-import biz.customer.ddl.CustomerCollect;
-import biz.customer.ddl.CustomerOrder;
-import biz.customer.dto.CustomerCollectDto;
-import biz.customer.service.CustomerCollectService;
-import biz.customer.service.CustomerOrderService;
-
-import com.google.common.collect.Lists;
+import biz.customer.ddl.Customer;
+import biz.customer.dto.CustomerDto;
+import biz.customer.service.CustomerService;
 
 import common.constants.IsEff;
 import common.constants.ResponseCode;
 import common.utils.BeanCopy;
 import common.utils.LogUtil;
+
 import controllers.base.BaseController;
 
 /**
- * 收藏单相关的操作
+ * 客户信息的相关操作
  * 
  * @author Joeson Chan<chenxuegui.cxg@alibaba-inc.com>
  * @since 2016年1月31日
- *
  */
-public class CustomerCollectController extends BaseController {
+public class CustomerController extends BaseController {
 
     /**
-     * 根据商户id获取订单列表
+     * 根据客户id获取客户
      * 
      * @param cusId 商户Id
      */
-    public static void getByCusId() {
-        RequestJson json = getParamJson();
-        Integer cusId = null != json ? json.getInteger("cusId") : null;
+    public static void getByCusId(Integer cusId) {
         checkRequired(cusId, "cusId");
 
-        List<CustomerCollectDto> dtoList = Lists.newArrayList();
+        CustomerDto dto = new CustomerDto();
         try {
-            List<CustomerCollect> list = CustomerCollectService.findByCustomerId(cusId);
-            for (CustomerCollect collect : list) {
-                CustomerCollectDto dto = new CustomerCollectDto();
-                BeanCopy.copy(dto, collect);
-                dtoList.add(dto);
-            }
+            Customer customer = CustomerService.findById(cusId, Customer.class);
+            BeanCopy.copy(dto, customer);
         } catch (BusinessException e) {
             LogUtil.error(e, e.getMessage());
             jsonFailed(ResponseCode.INTERNAL_ERROR, e.getMessage());
@@ -53,7 +40,7 @@ public class CustomerCollectController extends BaseController {
             jsonFailed(ResponseCode.INTERNAL_ERROR, e.getMessage());
         }
 
-        outJsonSuccess(dtoList);
+        outJsonSuccess(dto);
     }
 
     /**
@@ -61,13 +48,13 @@ public class CustomerCollectController extends BaseController {
      * 
      * @param order
      */
-    public static void saveOrder(CustomerOrder order) {
-        checkRequired(order, "order");
+    public static void saveOrder(Customer customer) {
+        checkRequired(customer, "customer");
 
         boolean result = false;
         try {
-            order.iseff = IsEff.EFFECTIVE.getMsg();
-            result = CustomerOrderService.save(order);
+            customer.iseff = IsEff.EFFECTIVE.getMsg();
+            result = CustomerService.save(customer);
         } catch (BusinessException e) {
             LogUtil.error(e, e.getMessage());
             jsonFailed(ResponseCode.INTERNAL_ERROR, e.getMessage());

@@ -9,6 +9,7 @@ import jws.dal.annotation.GeneratedValue;
 import jws.dal.annotation.GenerationType;
 import jws.dal.annotation.Id;
 import jws.dal.annotation.Table;
+import jws.dal.common.DbType;
 import extend.json.annotation.Comment;
 
 /**

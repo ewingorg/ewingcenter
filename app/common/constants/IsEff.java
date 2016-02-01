@@ -6,20 +6,20 @@ package common.constants;
 public enum IsEff {
 
     
-    INEFFECTIVE(0, "失效"),
+    INEFFECTIVE("0", "失效"),
 
  
-    EFFECTIVE(1, "生效");
+    EFFECTIVE("1", "生效");
 
-    private int value;
+    private String value;
     private String msg;
 
-    IsEff(int value, String msg) {
+    IsEff(String value, String msg) {
         this.value = value;
         this.msg = msg;
     }
 
-    public int getValue() {
+    public String getValue() {
         return value;
     }
 

@@ -17,4 +17,13 @@
 		<class name="WebResourceSpec" comment="资源规格" />
 		<class name="WebCategory" comment="分类" />
 	</package>
+	
+	<!--  -->
+	<package name="biz.customer.ddl">
+		<class name="Customer" comment="客户" />
+		<class name="CustomerCollect" comment="客户收藏夹" />
+		<class name="CustomerOrder" comment="客户订单" />
+		<class name="CustomerReceiveMsg" comment="客户收获地址" />
+		<class name="CustomerShopCart" comment="客户购买车" />
+	</package>
 </classes>

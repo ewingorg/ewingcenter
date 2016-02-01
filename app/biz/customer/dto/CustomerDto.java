@@ -1,9 +1,8 @@
-package biz.customer.ddl;
+package biz.customer.dto;
 
 import static jws.dal.common.DbType.Char;
 import static jws.dal.common.DbType.DateTime;
 import static jws.dal.common.DbType.Int;
-import static jws.dal.common.DbType.TinyInt;
 import static jws.dal.common.DbType.Varchar;
 import jws.dal.annotation.Column;
 import jws.dal.annotation.GeneratedValue;
@@ -16,50 +15,36 @@ import org.apache.commons.net.ntp.TimeStamp;
 import extend.voinfo.annotation.Comment;
 
 /**
- * 客户订单
+ * 客户信息
  *
  * @author CodeGenerator
- * @date 2016-01-31 03:42:24
+ * @date 2016-01-31 05:03:25
  */
-@Table(name = "customer_order")
-public class CustomerOrder {
+@Table(name = "customer")
+public class CustomerDto {
     
     /**
-     * Id
+     * id
      */
     @Id
     @GeneratedValue(generationType = GenerationType.Auto)
     @Column(name = "id", type = Int)
-    @Comment(name = "Id")
+    @Comment(name = "id")
     public Integer id;
     
     /**
-     * 客户id
+     * 客户名称
      */
-    @Column(name = "customer_id", type = Int)
-    @Comment(name = "客户id")
-    public Integer customerId;
+    @Column(name = "customer_name", type = Varchar)
+    @Comment(name = "客户名称")
+    public String customerName;
     
     /**
-     * 资源id
+     * nickname
      */
-    @Column(name = "resource_id", type = Int)
-    @Comment(name = "资源id")
-    public Integer resourceId;
-    
-    /**
-     * 收获人
-     */
-    @Column(name = "receiver", type = Varchar)
-    @Comment(name = "收获人")
-    public String receiver;
-    
-    /**
-     * 手机号码
-     */
-    @Column(name = "phone", type = Varchar)
-    @Comment(name = "手机号码")
-    public String phone;
+    @Column(name = "nick_name", type = Varchar)
+    @Comment(name = "nickname")
+    public String nickName;
     
     /**
      * 省份
@@ -90,32 +75,18 @@ public class CustomerOrder {
     public String address;
     
     /**
-     * 价格
+     * email
      */
-    @Column(name = "price", type = Varchar)
-    @Comment(name = "价格")
-    public String price;
-
-    /**
-     * 数量
-     */
-    @Column(name = "count", type = Int)
-    @Comment(name = "数量")
-    public Integer count;
+    @Column(name = "email", type = Varchar)
+    @Comment(name = "email")
+    public String email;
     
     /**
-     * 付款方式
+     * 电话
      */
-    @Column(name = "pay_way", type = TinyInt)
-    @Comment(name = "付款方式 0：在线付款 1：货到付款")
-    public Integer payWay;
-    
-    /**
-     * 状态 0 未提交 1 未付款 2已付款
-     */
-    @Column(name = "state", type = TinyInt)
-    @Comment(name = "状态 0 未提交 1 未付款 2已付款")
-    public Integer state;
+    @Column(name = "phone", type = Varchar)
+    @Comment(name = "电话")
+    public String phone;
     
     /**
      * 是否生效 0:没生效 1:生效
@@ -129,12 +100,12 @@ public class CustomerOrder {
      */
     @Column(name = "create_time", type = DateTime)
     @Comment(name = "")
-    public Long createTime;
+    public TimeStamp createTime;
     
     /**
      * 
      */
     @Column(name = "last_update", type = DateTime)
     @Comment(name = "")
-    public Long lastUpdate;
+    public TimeStamp lastUpdate;
 }

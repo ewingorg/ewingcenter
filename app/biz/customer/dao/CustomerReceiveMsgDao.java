@@ -19,8 +19,12 @@ import extend.jdbc.BaseDao;
  */
 public class CustomerReceiveMsgDao extends BaseDao {
 
-    public static List<CustomerReceiveMsg> findByCustomerId(Integer cusId) {
-        Condition condition = new Condition("CustomerReceiveAddress.customerId", "=", cusId);
+    public static List<CustomerReceiveMsg> find(Integer cusId, Integer isDefault) {
+        Condition condition = new Condition("CustomerReceiveMsg.customerId", "=", cusId);
+        condition.add(new Condition("CustomerReceiveMsg.iseff", "=", IsEff.EFFECTIVE.getValue()), "and");
+        if(null != isDefault){
+            condition.add(new Condition("CustomerReceiveMsg.isDefault", "=", isDefault), "and");
+        }
         return list(CustomerReceiveMsg.class, condition);
     }
 

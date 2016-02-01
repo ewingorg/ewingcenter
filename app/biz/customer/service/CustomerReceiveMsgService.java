@@ -20,10 +20,10 @@ public class CustomerReceiveMsgService extends BaseService{
      * 根据客户id查找对应的收获地址
      * @param cusId
      */
-    public static List<CustomerReceiveMsg> findByCustomerId(Integer cusId){
+    public static List<CustomerReceiveMsg> find(Integer cusId, Integer isDefault) {
         checkFalse(IntegerUtils.nullOrZero(cusId), "cusId不能为空");
         
-        return CustomerReceiveMsgDao.findByCustomerId(cusId);
+        return CustomerReceiveMsgDao.find(cusId, isDefault);
     }
-
+    
 }

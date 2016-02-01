@@ -57,12 +57,12 @@ public class CustomerCollect {
      */
     @Column(name = "create_time", type = DateTime)
     @Comment(name = "")
-    public TimeStamp createTime;
+    public Long createTime;
     
     /**
      * 
      */
     @Column(name = "last_update", type = DateTime)
     @Comment(name = "")
-    public TimeStamp lastUpdate;
+    public Long lastUpdate;
 }

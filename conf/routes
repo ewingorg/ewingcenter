@@ -10,6 +10,11 @@ GET     /error                               Application.error
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
-*  /product/indexList              WebResourceController.queryIndexProduct
-*  /product/detail                 WebResourceController.getProductDetail
+# 资源相关的配置
+*  /product/indexList              resource.WebResourceController.queryIndexProduct
+*  /product/detail                 resource.WebResourceController.getProductDetail
 
+
+# 收获地址相关的路由
+*   /address/list                  customer.CustomerReceiveMsgController.getByCusId
+*   /address/save                  customer.CustomerReceiveMsgController.saveMsg
